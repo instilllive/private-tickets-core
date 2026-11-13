@@ -1,0 +1,25 @@
+{
+  "cluster": "devnet",
+  "rpc": "https://api.devnet.solana.com",
+  "name": "Breakpoint Test Tickets",
+  "uri": "https://example.com/breakpoint-test-tickets.json",
+  "collectionAddress": "Ck9qLRFXR3rdhuRk5A4XRUJzdFWyMveqranfBDhHLH4Z",
+  "transactionSignature": "52SP9g6yqKmfmdZhUUQ4a7pst474mxGVEnR4WDtwQGdAprh3etawPudeVzdDqYgW2Fi2MxucXsbcvXi44PPeEDFR",
+  "updateAuthority": "GGh3g1EAHfbj6tnEDqivdLd82U2J7ZWr7nmducxfJBKo",
+  "numMinted": 0,
+  "currentSize": 0,
+  "explorer": {
+    "collection": "https://explorer.solana.com/address/Ck9qLRFXR3rdhuRk5A4XRUJzdFWyMveqranfBDhHLH4Z?cluster=devnet",
+    "transaction": "https://explorer.solana.com/tx/52SP9g6yqKmfmdZhUUQ4a7pst474mxGVEnR4WDtwQGdAprh3etawPudeVzdDqYgW2Fi2MxucXsbcvXi44PPeEDFR?cluster=devnet",
+    "authority": "https://explorer.solana.com/address/GGh3g1EAHfbj6tnEDqivdLd82U2J7ZWr7nmducxfJBKo?cluster=devnet"
+  },
+  "airdrop": {
+    "requested": false,
+    "alreadyFunded": true,
+    "amountSol": 0,
+    "signature": null
+  },
+  "balanceAfterSol": 0.99873016,
+  "createdAt": "2026-11-11T15:55:58.956Z",
+  "verified": true
+}

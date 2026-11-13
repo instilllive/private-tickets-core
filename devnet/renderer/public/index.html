@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Breakpoint ticket renderer · devnet</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Mona Sans", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 50% 20%, #1a1430, #07060c 55%);
+      color: #f2f1e9;
+    }
+    header {
+      padding: 20px 28px 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+    h1 { margin: 0; font-size: 22px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .badge {
+      font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
+      border: 1px solid #7c5cff;
+      color: #c9b8ff;
+      padding: 6px 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    main {
+      display: grid;
+      grid-template-columns: minmax(280px, 520px) 1fr;
+      gap: 28px;
+      padding: 12px 28px 32px;
+      align-items: start;
+    }
+    @media (max-width: 800px) { main { grid-template-columns: 1fr; } }
+    .ticket {
+      background: #05040a;
+      border: 1px solid #2a2344;
+      padding: 12px;
+    }
+    .ticket img {
+      width: 100%;
+      height: auto;
+      display: block;
+      image-rendering: auto;
+    }
+    .meta { font-size: 14px; line-height: 1.5; }
+    .meta a { color: #b7a4ff; }
+    .flags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+    .pill {
+      font: 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      padding: 7px 10px;
+      border: 1px solid #3a3358;
+      color: #8b86a3;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .pill.on { border-color: #9b6dff; color: #e8deff; background: #1b1233; }
+    .log {
+      margin-top: 18px;
+      font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+      background: #0c0a14;
+      border: 1px solid #2a2344;
+      padding: 12px 14px;
+      min-height: 120px;
+      white-space: pre-wrap;
+    }
+    .note { color: #9a94ad; font-size: 13px; max-width: 42em; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Breakpoint layered ticket</h1>
+    <span class="badge">Solana devnet prototype</span>
+  </header>
+  <main>
+    <div class="ticket">
+      <img id="art" alt="Layered ticket composite" src="/ticket.png" />
+    </div>
+    <div class="meta">
+      <p class="note">Optional collectible. The rotating QR is still the door pass. Layers come from Design’s working pack (direction C, thread weave). A slot appears only after its check-in flag is set on-chain.</p>
+      <div class="flags" id="flags"></div>
+      <p>State <span id="state">-----</span> · check-ins <span id="checkins">0</span></p>
+      <p>Asset: <a id="asset" href="#" target="_blank" rel="noreferrer">loading…</a></p>
+      <p>Last update: <span id="last">none yet</span></p>
+      <div class="log" id="log">waiting for flags…</div>
+    </div>
+  </main>
+  <script>
+    const SLOTS = ["door", "side_a", "side_b", "side_c", "side_d"];
+    const logEl = document.getElementById("log");
+    let lastSig = null;
+    let lastReason = null;
+    function line(s) {
+      const t = new Date().toLocaleTimeString();
+      logEl.textContent = `[${t}] ${s}
+` + logEl.textContent;
+    }
+    function pills(map) {
+      const root = document.getElementById("flags");
+      root.innerHTML = "";
+      for (const s of SLOTS) {
+        const el = document.createElement("span");
+        const on = map[s] === "1";
+        el.className = "pill" + (on ? " on" : "");
+        el.textContent = s + " = " + (on ? "1" : "0");
+        root.appendChild(el);
+      }
+    }
+    async function tick() {
+      const r = await fetch("/api/status", { cache: "no-store" });
+      const d = await r.json();
+      const map = d.flags || {};
+      pills(map);
+      document.getElementById("state").textContent = d.stateId || "-----";
+      document.getElementById("checkins").textContent = map.checkins || "0";
+      const img = document.getElementById("art");
+      const next = "/ticket.png?t=" + encodeURIComponent(d.stateId + ":" + (d.updatedAt || "") + ":" + (d.lastSignature || ""));
+      if (img.dataset.src !== next) { img.src = next; img.dataset.src = next; }
+      if (d.explorer && d.assetAddress) {
+        const a = document.getElementById("asset");
+        a.href = d.explorer;
+        a.textContent = d.assetAddress;
+      }
+      if (d.lastReason && (d.lastSignature !== lastSig || d.lastReason !== lastReason)) {
+        lastSig = d.lastSignature;
+        lastReason = d.lastReason;
+        const tx = d.lastSignature ? " tx " + d.lastSignature.slice(0, 8) + "…" : " no transaction";
+        line((d.lastReason || "update") + tx);
+        document.getElementById("last").textContent = d.lastReason + (d.lastSignature ? " · " + d.lastSignature.slice(0, 16) + "…" : "");
+      }
+    }
+    tick();
+    setInterval(tick, 800);
+  </script>
+</body>
+</html>

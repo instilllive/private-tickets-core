@@ -1,0 +1,26 @@
+# Secrets and local machine state — never commit
+keys/
+**/keys/
+*.pem
+*.p12
+.env
+.env.*
+!.env.example
+*secret*
+*keypair*
+mark-authority*
+guest-devnet*
+sync-delegate*
+
+# Dependencies and local output
+node_modules/
+logs/
+*.log
+*.tmp
+.DS_Store
+.netlify/
+.idea/
+.vscode/
+
+# Local key material if someone runs the mint scripts
+devnet/keys/

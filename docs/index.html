@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Private Tickets on Metaplex Core</title>
+  <style>
+    :root { --ink:#12141a; --muted:#4a5160; --line:#d8dbe3; --bg:#fff; --accent:#5b2dff; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; padding:0; background:#eef0f4; color:var(--ink);
+      font: 11.5px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    page, .page { width: 8.5in; min-height: 11in; margin: 16px auto; padding: 0.48in 0.55in 0.42in;
+      background: var(--bg); box-shadow: 0 1px 8px rgba(0,0,0,.08); }
+    h1 { font-size: 22px; letter-spacing: -0.03em; margin: 0 0 2px; }
+    .tag { color: var(--accent); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+    .lede { font-size: 13.5px; line-height: 1.4; margin: 8px 0 14px; max-width: 42em; }
+    h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--accent);
+      margin: 14px 0 6px; border-top: 1px solid var(--line); padding-top: 8px; }
+    p, li { color: var(--ink); }
+    p { margin: 0 0 6px; }
+    ul { margin: 0; padding-left: 1.1em; }
+    li { margin: 0 0 3px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 28px; }
+    table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+    th, td { text-align: left; vertical-align: top; padding: 5px 8px 5px 0; border-top: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 600; white-space: nowrap; width: 7.5rem; }
+    .ask { font-size: 14px; font-weight: 650; margin-bottom: 6px; }
+    footer { margin-top: 14px; color: var(--muted); font-size: 10px; border-top: 1px solid var(--line); padding-top: 8px; }
+    @media print {
+      body { background: #fff; }
+      .page { box-shadow: none; margin: 0; }
+    }
+    @media (max-width: 820px) {
+      .page { width: auto; min-height: 0; margin: 0; padding: 24px 18px; box-shadow: none; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <article class="page">
+    <div class="tag">MetaplexDAO Grants · Cohort 2 · Metaplex Core</div>
+    <h1>Private Tickets</h1>
+    <p class="lede">A Metaplex Core event pass the door will honor only for the current owner, with a host-set resale cap and royalty enforced in Core plugins, and a check-in that turns the ticket into a “was there” souvenir.</p>
+
+    <div class="grid">
+      <section>
+        <h2>The problem</h2>
+        <p>Paper and generic NFT tickets are easy to screenshot or scalp. The host often cannot tell who actually holds the pass, cannot cap the resale price on-chain, and gets nothing when a ticket is flipped. After the door, a reused pass or a second sale of the same ticket should not be possible.</p>
+      </section>
+      <section>
+        <h2>The solution</h2>
+        <p>Events and the calendar stay in the app. The chain holds ownership, a host-set resale cap, a host royalty, provenance, and attendance. The door admits only the current Core asset owner. After check-in, the same NFT becomes an un-resellable souvenir.</p>
+      </section>
+    </div>
+
+    <h2>Why it is Core-native</h2>
+    <p>Core plugins do the work that used to need a heavy custom NFT stack. <strong>Attributes</strong> store door and check-in state. An <strong>Update Delegate</strong> lets a hot door key run an idempotent <code>updatePlugin</code> (<code>door=1</code>) without holding the cold authority. The grant adds the <strong>Royalties</strong> plugin so marketplaces can pay the host, <strong>AppData</strong> for the event policy and cap, and a listing path that rejects over-cap sales while ordinary transfers still work before the event. After check-in, a targeted lock turns the ticket into a souvenir — not a soulbound pass at mint.</p>
+
+    <h2>Already built (Solana devnet)</h2>
+    <ul>
+      <li>Core collection <a href="https://explorer.solana.com/address/Ck9qLRFXR3rdhuRk5A4XRUJzdFWyMveqranfBDhHLH4Z?cluster=devnet">Ck9qLRFX…HH4Z</a> and asset <a href="https://explorer.solana.com/address/Cu4sj5yoPZjqukgBv6dnwuxGwF2w746zhWNML8RMr6rD?cluster=devnet">Cu4sj5yo…r6rD</a>, with Attributes and an Update Delegate.</li>
+      <li>Idempotent check-in: first scan sends <code>updatePlugin</code>; a replay is a no-op and sends no transaction.</li>
+      <li>Hosted renderer and live metadata: <a href="https://breakpoint-ticket-renderer.netlify.app">breakpoint-ticket-renderer.netlify.app</a></li>
+      <li>48-second demo: <a href="https://github.com/instilllive/private-tickets-core/blob/main/demo/solana-layered-ticket.mp4">demo/solana-layered-ticket.mp4</a></li>
+      <li>NEAR reference (capped resale, royalty, souvenir): <a href="https://github.com/instilllive/Near--private-tickets">instilllive/Near--private-tickets</a></li>
+    </ul>
+    <p>All on-chain work so far is devnet. No mainnet spend is part of this grant.</p>
+
+    <h2>Milestones and ask</h2>
+    <p class="ask">$18,000 in USDC / locked MPLX, paid after agreed milestones. Devnet only.</p>
+    <table>
+      <tr><th>1 · $4,000</th><td>Open-source the existing Core ticket: Attributes check-in, Update Delegate, renderer, AppData policy, Royalties plugin, and docs.</td></tr>
+      <tr><th>2 · $5,000</th><td>Capped resale and host royalty payout on devnet. Over-cap listings rejected. Provenance and tests. Ports the NEAR list/buy path.</td></tr>
+      <tr><th>3 · $5,000</th><td>Souvenir check-in and returning-guest read. Tickets stay transferable until check-in and lock into a souvenir afterward (planned, not built yet). New demo.</td></tr>
+      <tr><th>4 · $4,000</th><td>TypeScript SDK, reference UI, and documentation other Core builders can reuse.</td></tr>
+    </table>
+
+    <div class="grid">
+      <section>
+        <h2>Team</h2>
+        <p>Mark Flores, solo builder. Second place at Nitro 05. He shipped the NEAR version of Private Tickets and this Solana Metaplex Core devnet prototype, including the renderer and demo.</p>
+      </section>
+      <section>
+        <h2>Open source</h2>
+        <p>This repository is MIT-licensed. The mint tooling, plugin helpers, future listing/cap program, renderer, and SDK will stay public so other event apps can reuse the standard. No secrets or mainnet keys are in the repo.</p>
+      </section>
+    </div>
+
+    <footer>
+      Source: <a href="https://github.com/instilllive/private-tickets-core">github.com/instilllive/private-tickets-core</a>
+      · Deck: this page
+      · Prepared for MetaplexDAO Grants Cohort 2 · November 2026
+    </footer>
+  </article>
+</body>
+</html>

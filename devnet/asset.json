@@ -1,0 +1,49 @@
+{
+  "cluster": "devnet",
+  "rpc": "https://api.devnet.solana.com",
+  "name": "Breakpoint 2026 Ticket #1",
+  "uri": "https://breakpoint-ticket-renderer.netlify.app/metadata/devnet-ticket-001.json",
+  "ticketRef": "devnet-ticket-001",
+  "assetAddress": "Cu4sj5yoPZjqukgBv6dnwuxGwF2w746zhWNML8RMr6rD",
+  "collectionAddress": "Ck9qLRFXR3rdhuRk5A4XRUJzdFWyMveqranfBDhHLH4Z",
+  "owner": "HaFKU7KybamZohRcrVDYnAfs9v5dRfwYQXnyrikhUfcC",
+  "updateAuthority": "GGh3g1EAHfbj6tnEDqivdLd82U2J7ZWr7nmducxfJBKo",
+  "updateDelegate": "B52kMbwTdtguVKCy2RnoX9pRU4B4k9JE5VyjxasS7Das",
+  "transactions": [
+    {
+      "kind": "addCollectionUpdateDelegate",
+      "signature": "4owBsxP2YgDVyQiJXfkoYPVZEdFHxKHYbqK9ykfZ6pnotZWTXKRAGjLKDcLBXuYbsGXBnhpKAspKcauFXGmWMqYM",
+      "explorer": "https://explorer.solana.com/tx/4owBsxP2YgDVyQiJXfkoYPVZEdFHxKHYbqK9ykfZ6pnotZWTXKRAGjLKDcLBXuYbsGXBnhpKAspKcauFXGmWMqYM?cluster=devnet"
+    },
+    {
+      "kind": "createAsset",
+      "signature": "4LMeK177bswCue5s4roPQhUKiKVVRJauPHsbn1dZiPSUk8LJ7Tfw2pMifWuf5sgkkfwMChXZnTdDhKN1j9MBNuFf",
+      "explorer": "https://explorer.solana.com/tx/4LMeK177bswCue5s4roPQhUKiKVVRJauPHsbn1dZiPSUk8LJ7Tfw2pMifWuf5sgkkfwMChXZnTdDhKN1j9MBNuFf?cluster=devnet"
+    }
+  ],
+  "attributes": {
+    "door": "0",
+    "side_a": "0",
+    "side_b": "0",
+    "side_c": "0",
+    "side_d": "0",
+    "checkins": "0",
+    "last_event_code": "",
+    "ticket_ref": "devnet-ticket-001"
+  },
+  "explorer": {
+    "asset": "https://explorer.solana.com/address/Cu4sj5yoPZjqukgBv6dnwuxGwF2w746zhWNML8RMr6rD?cluster=devnet",
+    "collection": "https://explorer.solana.com/address/Ck9qLRFXR3rdhuRk5A4XRUJzdFWyMveqranfBDhHLH4Z?cluster=devnet",
+    "mint": "https://explorer.solana.com/tx/4LMeK177bswCue5s4roPQhUKiKVVRJauPHsbn1dZiPSUk8LJ7Tfw2pMifWuf5sgkkfwMChXZnTdDhKN1j9MBNuFf?cluster=devnet",
+    "owner": "https://explorer.solana.com/address/HaFKU7KybamZohRcrVDYnAfs9v5dRfwYQXnyrikhUfcC?cluster=devnet",
+    "updateDelegate": "https://explorer.solana.com/address/B52kMbwTdtguVKCy2RnoX9pRU4B4k9JE5VyjxasS7Das?cluster=devnet"
+  },
+  "balanceAfterSol": 0.94433996,
+  "createdAt": "2026-11-12T03:59:37.230Z",
+  "verified": true,
+  "uriUpdate": {
+    "signature": "5jVEBPm2X2etFaoPxBzBTRqkoGDFrBEtDRzVNeqarZRqSVyLnmSboBkehueu6euciNiK62Ndx7fhT9Apt7AgJs6a",
+    "explorer": "https://explorer.solana.com/tx/5jVEBPm2X2etFaoPxBzBTRqkoGDFrBEtDRzVNeqarZRqSVyLnmSboBkehueu6euciNiK62Ndx7fhT9Apt7AgJs6a?cluster=devnet",
+    "updatedAt": "2026-11-12T11:20:14.311Z"
+  }
+}

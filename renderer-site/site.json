@@ -1,0 +1,5 @@
+{
+  "name": "breakpoint-ticket-renderer",
+  "url": "https://breakpoint-ticket-renderer.netlify.app",
+  "note": "Hosted renderer for the devnet ticket. Source in this folder."
+}

@@ -1,0 +1,39 @@
+[build]
+  publish = "public"
+  command = "echo no-build"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  included_files = ["public/states/*.png"]
+
+[[redirects]]
+  from = "/ticket.png"
+  to = "/.netlify/functions/ticket-image"
+  status = 200
+
+[[redirects]]
+  from = "/render/devnet-ticket-001.png"
+  to = "/.netlify/functions/ticket-image"
+  status = 200
+
+[[redirects]]
+  from = "/metadata/devnet-ticket-001.json"
+  to = "/.netlify/functions/metadata"
+  status = 200
+
+[[redirects]]
+  from = "/api/status"
+  to = "/.netlify/functions/status"
+  status = 200
+
+[[headers]]
+  for = "/states/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=60, stale-while-revalidate=600"

@@ -1,0 +1,20 @@
+1
+00:00:00,000 --> 00:00:07,750
+This optional collectible lives on Solana devnet. The rotating QR is still the door pass.
+
+2
+00:00:08,000 --> 00:00:13,750
+The door scans the guest ticket.
+
+3
+00:00:14,000 --> 00:00:23,750
+Admitted. The update delegate sets door=1 on the Core asset.
+
+4
+00:00:24,000 --> 00:00:35,750
+The door layer unlocks on the ticket art.
+
+5
+00:00:36,000 --> 00:00:47,750
+Scan again, and the door refuses. The NFT does not change.
+
